@@ -12,6 +12,8 @@ Note: If you run into any issues installing or using XtreysPF, feel free to open
 ## Usage
 
 XtreysPF has one goal only, and its to rank the strength of the hole cards.
+Cards are ranked from 1 to 91 with 'A-A' or pocket Ace's being the strongest and a '2-7' being the weakest pair
+
 Here is a quick test to see if xtreyspf is working:
 
 ```python
