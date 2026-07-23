@@ -14,7 +14,7 @@ Note: If you run into any issues installing or using XtreysPF, feel free to open
 XtreysPF has one goal only, and its to rank the strength of the hole cards.
 Here is a quick test to see if xtreyspf is working:
 
-```bash python
+```python
 from treys import Deck
 import xtreyspf as pf
 
