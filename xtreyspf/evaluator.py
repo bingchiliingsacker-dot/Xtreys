@@ -44,8 +44,8 @@ CARD_COMBINATIONS = {
 
 
 def preflop_eval(card):
-    card_1 = Card.int_to_str(card[0])
-    card_2 = Card.int_to_str(card[1])
+    card_1 = Card.int_to_str(card[0]) if isinstance(card[0], int) else card[0]
+    card_2 = Card.int_to_str(card[1]) if isinstance(card[1], int) else card[1]
 
     card_rank = f'{card_1[0]}-{card_2[0]}'
 
