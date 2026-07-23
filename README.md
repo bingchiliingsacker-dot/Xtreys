@@ -15,6 +15,7 @@ XtreysPF has one goal only, and its to rank the strength of the hole cards.
 Here is a quick test to see if xtreyspf is working:
 
 ```bash
+python ...
 from treys import Deck
 import xtreyspf as pf
 
