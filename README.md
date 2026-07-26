@@ -6,6 +6,12 @@ To install **XtreysPF**, open your terminal and run:
 pip install git+https://github.com/bingchiliingsacker-dot/XtreysPF.git
 ```
 
+or:
+
+```bash
+pip install xtreyspf
+```
+
 Note: If you run into any issues installing or using XtreysPF, feel free to open a ticket on the Issues tab!
 
 
