@@ -22,3 +22,7 @@ dependencies = [
 
 [project.urls]
 'Homepage' = 'https://github.com/bingchiliingsacker-dot/XtreysPF'
+
+[pypi]
+username = __token__
+password = pypi-NEW_TOKEN_HERE
