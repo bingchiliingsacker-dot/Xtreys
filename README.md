@@ -24,7 +24,7 @@ Note: If you run into any issues installing or using Xtreys, feel free to open a
 ## Usages
 
 One of **Xtreys**' goals is to evaluate hole cards only.
-Cards are ranked from 1 to 91 with 'A-A' or pocket Ace's being the strongest and a '2-7' being the weakest pair
+Cards are ranked from 1 to 91 with 'A-A' or pocket Ace's being the strongest and a '2-7' being the weakest hand
 
 The function for this is ```preflop_eval```.
 
@@ -53,7 +53,8 @@ d = Deck()
 
 cards = d.draw(2)
 flop_board = d.draw(3)
-turn_card, river_card = d.draw(1), d.draw(1)
+turn_card = d.draw(1)
+river_card = d.draw(1)
 
 turn_board = flop_board + turn_card
 river_board = flop_board + river_card
@@ -98,9 +99,11 @@ d = Deck()
 
 cards = d.draw(2)
 flop_board = d.draw(3)
-turn_card, river_card = d.draw(1), d.draw(1)
+turn_card = d.draw(1)
+river_card = d.draw(1)
 
 turn_board = flop_board + turn_card
+river_board = flop_board + river_card
 
 flop_equity = accurate_equity(cards, flop_board, 100)
 
@@ -118,7 +121,6 @@ river_equity = accurate_equity(cards, river_board)
 
 print('---River---')
 print(f'Accurate equity:\t{river_equity:.2f}')
-river_board = flop_board + river_card
 
 '''
 Output:
