@@ -1,4 +1,4 @@
-from treys import Evaluator
+from treys import Evaluator, Deck
 
 evaluator = Evaluator()
 
