@@ -18,7 +18,7 @@ or:
 pip install xtreys
 ```
 
-Note: If you run into any issues installing or using XtreysPF, feel free to open a ticket on the **Issues** tab!
+Note: If you run into any issues installing or using Xtreys, feel free to open a ticket on the **Issues** tab!
 
 
 ## Usages
