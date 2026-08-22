@@ -45,36 +45,50 @@ CARD_COMBINATIONS = {
 }
 
 
-def preflop_eval(cards: list[int]) -> int:
-    card_1 = Card.int_to_str(card[0]) if isinstance(card[0], int) else card[0]
-    card_2 = Card.int_to_str(card[1]) if isinstance(card[1], int) else card[1]
+def preflop_eval(cards: list[int] | list[str]) -> int:
+	'''
+	Note: both [4883929747, 47828274732] and [Ah, Kd] are accepted.
+	'''
+	card_1 = Card.int_to_str(cards[0]) if isinstance(cards[0], int) else cards[0]
+	card_2 = Card.int_to_str(cards[1]) if isinstance(cards[1], int) else cards[1]
 
-    card_rank = f'{card_1[0]}-{card_2[0]}'
+	card_rank = f'{card_1[0]}-{card_2[0]}'
 
-    if card_rank not in CARD_COMBINATIONS:
-        card_rank = f'{card_2[0]}-{card_1[0]}'
-
-    return CARD_COMBINATIONS.get(card_rank, 91)
+	if card_rank not in CARD_COMBINATIONS:
+		card_rank = f'{card_2[0]}-{card_1[0]}'
+		
+	return CARD_COMBINATIONS.get(card_rank, 91)
 
 def accurate_equity(
 	cards: list[int],
 	board: list[int],
-	opp_cards: list[list[int]]
+	simulations: int = 50
 ) -> float:
 	'''
 	Accurately finds the equity/win rate of
-	cards, though it needs opponent cards to
-	calculate it accurately. But theres no limit
-	to how many opp_cards list has, can be 3,
-	can be 4, can be 100(not recommended).
+	variable cards. Uses Monte-Carlo simulation
+	method to evaluate which kind of makes it less
+	accurate but its still accurate.
+
+	Simulations variable can be changed to what your heart desires.
+
+	Cards variable needs the list of raw strings generated from Deck().
+
+	Board variable also needs the list of raw strings generated from Deck().
 	'''
 	
 	win = 0
 	tie = 0
 	lose = 0
+	player_rank_equivalent = evaluator.evaluate(board, cards)
 	
-	for hand in opp_cards:
-		hand_rank_equivalent, player_rank_equivalent = evaluator.evaluate(board, hand), evaluator.evaluate(board, cards)
+	for _ in range(simulations):
+		
+		deck = Deck()
+		
+		hand = deck.draw(2)
+		
+		hand_rank_equivalent = evaluator.evaluate(board, hand)
 		
 		if hand_rank_equivalent > player_rank_equivalent:
 			win += 1
@@ -95,6 +109,8 @@ def approximate_equity(
 	I do not recommend this function unless
 	you are calculating the equity of post-flop
 	without a worry of hacking.
+
+	Cards and board variables both need the list of raw integers generated from Deck()
 	'''
 	
 	approxy = evaluator.evaluate(board, cards)
