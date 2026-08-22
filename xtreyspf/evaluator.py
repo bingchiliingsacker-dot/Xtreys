@@ -1,12 +1,14 @@
 #=============================================================================
 #----------------------------OPEN-SOURCE CODE---------------------------------
-#      -An extended add-on of the library treys that evaluates the rank of
-#  pre-flop cards.
+#                
+#                 An extended add-on of the library treys.
 #
 #  MADE BY: TheCursedOne
 #=============================================================================
 
-from treys import Card
+from treys import Card, Evaluator
+
+evaluator = Evaluator()
 
 CARD_COMBINATIONS = {
     # --- PAIRS TIER (#1 to #13) ---
@@ -43,7 +45,7 @@ CARD_COMBINATIONS = {
 }
 
 
-def preflop_eval(card):
+def preflop_eval(cards: list[int]) -> int:
     card_1 = Card.int_to_str(card[0]) if isinstance(card[0], int) else card[0]
     card_2 = Card.int_to_str(card[1]) if isinstance(card[1], int) else card[1]
 
@@ -53,3 +55,61 @@ def preflop_eval(card):
         card_rank = f'{card_2[0]}-{card_1[0]}'
 
     return CARD_COMBINATIONS.get(card_rank, 91)
+
+def accurate_equity(
+	cards: list[int],
+	board: list[int],
+	opp_cards: list[list[int]]
+) -> float:
+	'''
+	Accurately finds the equity/win rate of
+	cards, though it needs opponent cards to
+	calculate it accurately. But theres no limit
+	to how many opp_cards list has, can be 3,
+	can be 4, can be 100(not recommended).
+	'''
+	
+	win = 0
+	tie = 0
+	lose = 0
+	
+	for hand in opp_cards:
+		hand_rank_equivalent, player_rank_equivalent = evaluator.evaluate(board, hand), evaluator.evaluate(board, cards)
+		
+		if hand_rank_equivalent > player_rank_equivalent:
+			win += 1
+		elif hand_rank_equivalent == player_rank_equivalent:
+			tie += 1
+		else:
+			lose += 1
+	
+	total_possibility = win + tie + lose
+	return (win + 0.5 * tie) / total_possibility
+
+def approximate_equity(
+	cards: list[int], 
+	board: list[int]
+) -> float:
+	'''
+	Finds the approximate win rate of the card.
+	I do not recommend this function unless
+	you are calculating the equity of post-flop
+	without a worry of hacking.
+	'''
+	
+	approxy = evaluator.evaluate(board, cards)
+	rank_class = evaluator.get_rank_class(approxy)
+	
+	approximate_book = {
+		1: 0.9,
+		2: 0.8,
+		3: 0.7,
+		4: 0.6,
+		5: 0.5,
+		6: 0.4,
+		7: 0.3,
+		8: 0.2,
+		9: 0.1,
+	}
+	
+	return approximate_book.get(rank_class, 0.0)
