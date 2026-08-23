@@ -1,3 +1,5 @@
+from treys import Evaluator, Deck, Card
+
 evaluator = Evaluator()
 
 def accurate_equity(
