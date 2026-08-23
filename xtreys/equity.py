@@ -39,11 +39,14 @@ def accurate_equity(
 	win = 0
 	tie = 0
 	lose = 0
-	player_rank_equivalent = evaluator.evaluate(board, cards)
+	player_rank_equivalent = evaluator.evaluate(new_board, new_cards)
 	
 	for _ in range(simulations):
 		
 		deck = Deck()
+
+		for c in new_cards + new_board:
+			deck.cards.remove(c)
 		
 		hand = deck.draw(2)
 		
