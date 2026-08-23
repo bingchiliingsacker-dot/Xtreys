@@ -1,5 +1,3 @@
-from treys import Evaluator, Deck, Card
-
 evaluator = Evaluator()
 
 def accurate_equity(
@@ -77,9 +75,9 @@ def approximate_equity(
 
 	for card in cards:
 	    if isinstance(card, str):
-			new_cards.append(Card.new(card))
-		else:
-			new_cards.append(card)
+	    	new_cards.append(Card.new(card))
+	    else:
+	    	new_cards.append(card)
 
 	for b in board:
 		if isinstance(b, str):
@@ -102,7 +100,7 @@ def approximate_equity(
 		9: 0.1,
 	}
 	
-	return approximate_book.get(rank_class, 0.0
+	return approximate_book.get(rank_class, 0.0)
 
 DECISIONS = {
 	'all_in': 0.5,
