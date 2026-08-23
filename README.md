@@ -134,3 +134,42 @@ Accurate equity:        0.39
 ---River---
 Accurate equity:        0.30
 '''
+```
+
+```relative_equity``` outputs almost the same equity as ```accurate_equity```, the only difference between the two is that ```relative_equity``` calculates the equity of the players hand based on behavior unlike ```accurate_equity``` which is accurate mathematically.
+
+Here is a quick test for ```relative_equity```:
+```python
+from treys import Deck
+
+for _ in range(5):
+	deck = Deck()
+	
+	cards = deck.draw(2)
+	board = deck.draw(3)
+	
+	opp_cards = [
+	    deck.draw(2),
+	    deck.draw(2),
+	    deck.draw(2)
+	]
+	
+	choice = ['bet', 'fold', 'check', 'call', 'raise', 'all_in']
+	
+	decision = choices(choice, k=3)
+	
+	equity = relative_equity(
+	    cards=cards,
+	    board=board,
+	    opp_cards=opp_cards,
+	    decision=decision,
+	    average_aggression=uniform(0.0, 10.0)
+	    )
+	
+	print('---Relative Equity Test---')
+	print(f'cards:\t{cards}')
+	print(f'Opponent cards:\t{opp_cards}')
+	print(f'Board:\t{board}')
+	print(f'Equity:\t{equity}')
+	print('')
+```
